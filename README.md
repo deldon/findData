@@ -1,67 +1,78 @@
-# Module de Manipulation de Données
+# 📦 Data Manipulation Module
 
-Le module de manipulation de données est une bibliothèque pour Node.js qui facilite la manipulation et l'analyse de tableaux de données. Que vous travailliez avec des données brutes ou que vous souhaitiez effectuer des opérations complexes telles que le tri, la recherche ou le calcul de statistiques, ce module peut vous simplifier la tâche.
+**[Documentation en francais](README_FR.md)**
 
-## Pourquoi Utiliser ce Module ?
+The 📦 data manipulation module is a library that simplifies the manipulation and analysis of data arrays. Whether your data is raw or you need to perform complex operations like sorting, searching 🕵️‍♂️, or calculations 📊, this module can make your task easier.
 
-### Structuration des Données
+## Why Use This Module? 🤷‍♂️
 
-L'un des aspects clés de la manipulation de données est d'avoir des données bien structurées. Ce module vous permet de prendre un tableau de données existant et d'y ajouter une propriété 'id' unique à chaque objet. Il garantit également que tous les objets du tableau ont les mêmes clés, vous assurant ainsi une structure cohérente.
+### Data Structuring 🏗️
 
-### Exploration des Données
+One of the essential aspects of data manipulation is having well-structured data. This module allows you to take an existing data array and add a unique 'id' property to each object. It also ensures that all objects in the array have the same keys, ensuring a consistent structure.
 
-Vous pouvez facilement explorer vos données en extrayant des informations essentielles. Le module fournit des méthodes pour rechercher des objets spécifiques par leur 'id' ou pour filtrer les données en fonction de critères spécifiques. Cela vous permet de répondre rapidement à des questions telles que "Quels sont les éléments correspondant à un critère particulier ?"
+### Data Exploration 🔍
 
-### Agrégation de Données
+You can easily explore your data by extracting essential information. The module provides methods for searching for specific objects by their 'id' or filtering data based on specific criteria. This allows you to quickly answer questions like "What items match a particular criterion?"
 
-Si vous devez agréger ou résumer des données, ce module vous permet de calculer des statistiques telles que la somme, la valeur maximale et la valeur minimale pour n'importe quelle clé numérique. Vous pouvez ainsi obtenir rapidement des informations utiles à partir de vos données.
+### Data Aggregation 📊
 
-### Pagination des Données
+If you need to aggregate or summarize data, this module allows you to calculate statistics such as sum, maximum, and minimum values for any numeric key. This enables you to obtain valuable insights from your data quickly.
 
-Pour gérer de grandes quantités de données, le module offre une fonction de pagination. Vous pouvez spécifier le numéro de page et le nombre d'éléments par page, et le module renverra la plage de données correspondante. Cela facilite la création de vues paginées dans votre application.
+### Data Pagination 📄
 
-### Recherche de Texte
+To handle large amounts of data, the module offers a pagination function. You can specify the page number and the number of items per page, and the module will return the corresponding data range. This makes it easy to create paginated views in your application.
 
-Une autre fonctionnalité puissante de ce module est la recherche de texte. Vous pouvez effectuer des recherches insensibles à la casse et sans tenir compte des accents. Cela vous permet de rechercher des objets contenant des termes spécifiques dans une clé donnée, améliorant ainsi la convivialité de votre application.
+### Text Search 🔎
 
-## Comment Utiliser ce Module
-
-### Table des matières
-
-1. Installation
-2. Création de l'Instance du Module
-3. Structure des Données
-4. Exploration des Données
-5. Agrégation des Données
-6. Pagination des Données
-7. Recherche de Texte
-
-## 1. Installation
-
-Pour utiliser le module de manipulation de données, vous devez l'installer dans votre projet Node.js à l'aide de npm. Exécutez la commande suivante dans le répertoire de votre projet :
-
-
-```bash
-npm install findData
-```
-
-## 2. Création de l'Instance du Module
-
-Après avoir installé le module, vous pouvez l'importer dans votre code JavaScript comme suit :
+Another powerful feature of this module is text search. You can perform case-insensitive and accent-insensitive text searches on a specific key. For example, to search for objects containing the term "apple" in the 'description' key:
 
 ```javascript
-const findData = require("findData");
+const newData = user.findAll({
+  where: [
+    user.search('description', 'apple')
+  ]
+});
+console.log(newData);
 ```
 
-Ensuite, créez une instance du module en passant votre tableau de données (data) en tant qu'argument :
+## How to Use This Module? 🛠️
+
+### Table of Contents 📜
+
+1. Installation
+2. Creating the Module Instance
+3. Data Structure
+4. Data Exploration
+5. Data Aggregation
+6. Data Pagination
+7. Text Search
+8. Functions
+
+## 1. Installation 🚀
+
+To use the data manipulation module, you need to install it in your Node.js project using npm. Run the following command in your project directory:
+
+```bash
+npm i find_all_data
+```
+
+## 2. Creating the Module Instance 🏭
+
+After installing the module, you can import it into your JavaScript code as follows:
+
+```javascript
+const findData = require("find_all_data");
+```
+
+Then, create an instance of the module by passing your data array (data) as an argument:
 
 ```javascript
 const user = findData(data);
 ```
 
-## 3. Structure des Données
+## 3. Data Structure 🧱
 
-Le module garantit une structure cohérente des données en ajoutant une propriété 'id' unique à chaque objet du tableau. Il vérifie également que tous les objets ont les mêmes clés. Voici comment cela fonctionne :
+The module ensures a consistent data structure by adding a unique 'id' property to each object in the array. It also verifies that all objects have the same keys. Here's how it works:
 
 ```javascript
 const data = require("./user.json");
@@ -69,87 +80,87 @@ const findData = require("findData");
 
 const user = findData(data);
 
-console.log(newData);
+console.log(user.all());
 ```
 
-Dans l'exemple ci-dessus, `newData` contiendra votre tableau de données avec les 'id' ajoutés.
+In the above example, `user.all()` will return your data array with the 'id' added.
 
-## 4. Exploration des Données
+## 4. Data Exploration 🔍
 
-### Recherche par 'id'
+### Searching by 'id' 🔎
 
-Vous pouvez rechercher un objet par son 'id' à l'aide de la méthode `findById`. Par exemple :
+You can search for an object by its 'id' using the `findById` method. For example:
 
 ```javascript
-const objetTrouvé = user.findById(1);
-console.log(objetTrouvé);
+const myUser = user.findById(1);
+console.log(myUser);
 ```
 
-### Filtrage des Données
+### Data Filtering 🧹
 
-La méthode `findAll` permet de rechercher des objets dans un ensemble de données en utilisant diverses options de filtrage et de tri. Cette méthode est particulièrement utile pour extraire des données spécifiques à partir d'une collection.
+The `findAll` method allows you to search for objects in a data set using various filtering and sorting options. This method is particularly useful for extracting specific data from a collection.
 
-### Signature
+### Signature 🖋️
 
 ```javascript
 findAll(params);
 ```
 
-### Paramètres
+### Parameters 🎛️
 
-- `params` (objet) : Un objet contenant les options de recherche et de filtrage.
+- `params` (object): An object containing search and filtering options.
 
-### Options de `params`
+### `params` Options 📦
 
-- `params.where` (tableau de function) : Un tableau de function pour filtrer les objets en fonction des valeurs de retour.
-- `params.order` (tableau de deux chaînes de caractères) : Un tableau contenant le nom de la clé de tri et l'ordre de tri ("ASC" pour ascendant ou "DESC" pour descendant).
-- `params.limit` (tableau de deux nombres) : Un tableau contenant la limite d'éléments à retourner, avec une valeur d'offset en premier et une valeur de limite en second.
+- `params.where` (array of functions): An array of functions to filter objects based on return values.
+- `params.order` (array of two strings): An array containing the name of the sorting key and the sorting order ("ASC" for ascending or "DESC" for descending).
+- `params.limit` (array of two numbers): An array containing the limit of items to return, with an offset value first and a limit value second.
 
-### Retour
+### Return 🚀
 
-- Un tableau d'objets correspondant aux critères de recherche spécifiés.
+- An array of objects that match the specified search criteria.
 
+### Usage Examples 🛠️
 
-### Exemples d'utilisation
-
-1. **Filtrer par une seule clé**
+1. **Filtering by a Single Key** 🎯
 
 ```javascript
 const newData = user.findAll({
   where: [
     user => user.age <= 10
-    ]
-});
-console.log(newData)
-```
-
-2. **Trier par ordre croissant**
-
-```javascript
-const newData = user.findAll({
-  order:['age','ASC']
+  ]
 });
 console.log(newData);
 ```
 
-3. **Trier par ordre décroissant**
+2. **Sorting in Ascending Order** 🔄
 
 ```javascript
 const newData = user.findAll({
-  order:['age','DESC']
+  order: ['age', 'ASC']
 });
 console.log(newData);
 ```
 
-4. **Limite de résultats avec un offset**
+3. **Sorting in Descending Order** 🔄
 
 ```javascript
 const newData = user.findAll({
-  limit: [5, 10], // Renvoyer 10 résultats à partir du 6ème résultat
+  order: ['age', 'DESC']
 });
 console.log(newData);
 ```
-5. **Combiner plusieurs options**
+
+4. **Limiting Results with an Offset** 📃
+
+```javascript
+const newData = user.findAll({
+  limit: [5, 10], // Return 10 results starting from the 6th result
+});
+console.log(newData);
+```
+
+5. **Combining Multiple Options** 🌟
 
 ```javascript
 const newData = user.findAll({
@@ -157,72 +168,110 @@ const newData = user.findAll({
     user => user.age <= 10,
     user => user.isAdmin === true,
   ],
-  order:['age','DESC'],
+  order: ['age', 'DESC'],
   limit: [5, 10],
 });
 console.log(newData);
 ```
 
-## 5. Agrégation des Données
+## 5. Data Aggregation 📊
 
-Vous pouvez effectuer plusieurs opérations d'agrégation sur vos données, telles que le calcul de la somme, la recherche de la valeur maximale et minimale d'une clé numérique. Voici quelques exemples :
+You can perform several aggregation operations on your data, such as calculating the sum, finding the maximum and minimum values for a numeric key. Here are some examples:
 
-#### Somme des Valeurs
+#### Sum of Values 📈
 
 ```javascript
-const somme = user.sum("age");
-console.log(somme);
+const sum = user.sum("age");
+console.log(sum);
 ```
 
-#### Valeur Maximale
+#### Maximum Value 🚀
 
 ```javascript
-const valeurMaximale = user.max("age");
-console.log(valeurMaximale);
+const maxValue = user.max("age");
+console.log(maxValue);
 ```
 
-#### Valeur Minimale
+#### Minimum Value 📉
 
 ```javascript
-const valeurMinimale = user.min("age");
-console.log(valeurMinimale);
+const minValue = user.min("age");
+console.log(minValue);
 ```
 
-## 6. Pagination des Données
+## 6. Data Pagination 📄
 
-La pagination vous permet de gérer de grandes quantités de données en récupérant uniquement une partie des résultats à la fois. Voici comment paginer vos données :
+Pagination allows you to manage large amounts of data by retrieving only a portion of the results at a time. Here's how to paginate your data:
 
 ```javascript
-const [offset, limit] = user.page(2, 10); // Page 2, 10 éléments par page
+const [offset, limit] = user.page(2, 10); // Page 2, 10 items per page
 ```
 
 ```javascript
-
 const newData = user.findAll(
   {
-    limit:user.page(2, 10)
+    limit: user.page(2, 10)
   });
 
 console.log(newData);
-
 ```
 
-## 7. Recherche de Texte
+## 7. Text Search 🔍
 
-Vous pouvez effectuer des recherches de texte insensibles à la casse et sans tenir compte des accents sur une clé spécifique. Par exemple, pour rechercher des objets contenant le terme "pomme" dans la clé 'description' :
+You can perform case-insensitive and accent-insensitive text searches on a specific key. For example, to search for objects containing the term "apple" in the 'description' key:
 
 ```javascript
-
 const newData = user.findAll(
   {
     where: [
-      user.sherch('description', 'pomme')
-      ]
+      user.search('description', 'apple')
+    ]
   });
 
 console.log(newData);
-
 ```
 
-Cette documentation couvre les principales fonctionnalités du module de manipulation de données. Vous pouvez maintenant utiliser ces outils pour explorer, filtrer, agréger et paginer vos données avec facilité dans vos projets JavaScript. N'hésitez pas à expérimenter davantage avec ces fonctions pour mieux les maîtriser.
+## 8. Functions 🛠️
 
+It provides several useful functions for working with data sets. Here's a description of the key functions of the module.
+
+## `keys` Function 🗝️
+
+
+
+The `keys` function returns an array of keys (property names) of the objects in the data array. This allows you to understand the structure of objects and the properties you can access.
+
+```javascript
+const keys = user.keys();
+console.log(keys); // Displays an array of keys
+```
+
+## `distinct` Function 🌟
+
+The `distinct` function takes a key as input and returns an array of unique values for that key in the data array. It's useful for obtaining unique values from a specific column.
+
+```javascript
+const uniqueValues = user.distinct('age');
+console.log(uniqueValues); // Displays an array of unique values
+```
+
+## `type` Function 📝
+
+The `type` function takes a key as input and returns the data type (string, number, boolean, etc.) of the associated property in the objects of the data array.
+
+```javascript
+const propertyType = user.type('age');
+console.log(propertyType); // Displays the data type
+```
+
+## `reset` Function 🔄
+
+The `reset` function resets the temporary data array to the original data. This cancels all previous filtering, sorting, or pagination operations applied.
+
+```javascript
+user.reset(); // Resets the temporary data
+```
+
+These functions allow you to better understand the structure of your data, extract unique values, and determine the data types associated with your objects' properties. You can also reset temporarily modified data at any time using the `reset` function.
+
+This documentation covers the main features of the data manipulation module. You can now use these tools to explore, filter, aggregate, and paginate your data with ease in your JavaScript projects. Feel free to experiment further with these functions to master them better. 🚀

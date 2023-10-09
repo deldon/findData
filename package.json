@@ -1,6 +1,6 @@
 {
-  "name": "finddata",
-  "version": "1.0.0",
+  "name": "find_all_data",
+  "version": "1.0.1",
   "description": "Simplifies the manipulation and analysis of data arrays",
   "main": "index.js",
   "scripts": {
