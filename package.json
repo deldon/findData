@@ -1,0 +1,20 @@
+{
+  "name": "finddata",
+  "version": "1.0.0",
+  "description": "Simplifies the manipulation and analysis of data arrays",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deldon/findData.git"
+  },
+  "author": "DELDON Romain",
+  "license": "MIT",
+  "keywords": ["Data", "Tableau", "Sorting", "Searching", "Data manipulation"],
+  "bugs": {
+    "url": "https://github.com/deldon/findData/issues"
+  },
+  "homepage": "https://github.com/deldon/findData#readme"
+}
