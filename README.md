@@ -24,16 +24,7 @@ To handle large amounts of data, the module offers a pagination function. You ca
 
 ### Text Search 🔎
 
-Another powerful feature of this module is text search. You can perform case-insensitive and accent-insensitive text searches on a specific key. For example, to search for objects containing the term "apple" in the 'description' key:
-
-```javascript
-const newData = user.findAll({
-  where: [
-    user.search('description', 'apple')
-  ]
-});
-console.log(newData);
-```
+Another powerful feature of this module is text search. You can perform case-insensitive searches without considering accents. This allows you to search for objects containing specific terms within a given key, thereby improving the user-friendliness of your application.
 
 ## How to Use This Module? 🛠️
 

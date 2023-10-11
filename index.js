@@ -165,9 +165,8 @@ module.exports = (data) => {
         }
 
         if (params.limit) {
-          [offset, limit] = params.limit;
-          app.temp = app.temp.slice(offset, app.temp.length);
-          app.temp = app.temp.slice(0, limit);
+          app.temp = app.temp.slice(params.limit[0], app.temp.length);
+          app.temp = app.temp.slice(0, params.limit[1]);
         }
 
         return app.temp;
