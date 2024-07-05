@@ -1,0 +1,63 @@
+[
+    {
+      "name": "Margherita Pizza",
+      "price": 12.99,
+      "vegetarian": true,
+      "countryOfOrigin": "Italy"
+    },
+    {
+      "name": "Salmon Sushi",
+      "price": 15.50,
+      "vegetarian": false,
+      "countryOfOrigin": "Japan"
+    },
+    {
+      "name": "Pad Thai",
+      "price": 10.95,
+      "vegetarian": false,
+      "countryOfOrigin": "Thailand"
+    },
+    {
+      "name": "Caesar Salad",
+      "price": 8.99,
+      "vegetarian": true,
+      "countryOfOrigin": "USA"
+    },
+    {
+      "name": "Vegetable Curry",
+      "price": 11.75,
+      "vegetarian": true,
+      "countryOfOrigin": "India"
+    },
+    {
+      "name": "Hamburger",
+      "price": 9.50,
+      "vegetarian": false,
+      "countryOfOrigin": "USA"
+    },
+    {
+      "name": "Chicken Tacos",
+      "price": 7.25,
+      "vegetarian": false,
+      "countryOfOrigin": "Mexico"
+    },
+    {
+      "name": "Vegetarian Sushi",
+      "price": 13.99,
+      "vegetarian": true,
+      "countryOfOrigin": "Japan"
+    },
+    {
+      "name": "Chicken Tikka Masala",
+      "price": 14.25,
+      "vegetarian": false,
+      "countryOfOrigin": "India"
+    },
+    {
+      "name": "Alfredo Pasta",
+      "price": 10.75,
+      "vegetarian": true,
+      "countryOfOrigin": "Italy"
+    }
+  ]
+  

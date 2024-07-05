@@ -1,268 +1,285 @@
-# 📦 Data Manipulation Module
+# 📦 FindAllData
 
-**[Documentation en francais](README_FR.md)**
+**FindAllData** is an awesome JavaScript library for easily managing, searching, and manipulating datasets. Do you often work with arrays of objects? Then this library is for you! It offers handy methods for filtering, sorting, paginating, and much more.
 
-The 📦 data manipulation module is a library that simplifies the manipulation and analysis of data arrays. Whether your data is raw or you need to perform complex operations like sorting, searching 🕵️‍♂️, or calculations 📊, this module can make your task easier.
+![npm version](https://img.shields.io/npm/v/find_all_data) ![npm downloads](https://img.shields.io/npm/dm/find_all_data) ![license](https://img.shields.io/npm/l/find_all_data)
 
-## Why Use This Module? 🤷‍♂️
+## 🎉 Installation
 
-### Data Structuring 🏗️
-
-One of the essential aspects of data manipulation is having well-structured data. This module allows you to take an existing data array and add a unique 'id' property to each object. It also ensures that all objects in the array have the same keys, ensuring a consistent structure.
-
-### Data Exploration 🔍
-
-You can easily explore your data by extracting essential information. The module provides methods for searching for specific objects by their 'id' or filtering data based on specific criteria. This allows you to quickly answer questions like "What items match a particular criterion?"
-
-### Data Aggregation 📊
-
-If you need to aggregate or summarize data, this module allows you to calculate statistics such as sum, maximum, and minimum values for any numeric key. This enables you to obtain valuable insights from your data quickly.
-
-### Data Pagination 📄
-
-To handle large amounts of data, the module offers a pagination function. You can specify the page number and the number of items per page, and the module will return the corresponding data range. This makes it easy to create paginated views in your application.
-
-### Text Search 🔎
-
-Another powerful feature of this module is text search. You can perform case-insensitive searches without considering accents. This allows you to search for objects containing specific terms within a given key, thereby improving the user-friendliness of your application.
-
-## How to Use This Module? 🛠️
-
-### Table of Contents 📜
-
-1. Installation
-2. Creating the Module Instance
-3. Data Structure
-4. Data Exploration
-5. Data Aggregation
-6. Data Pagination
-7. Text Search
-8. Functions
-
-## 1. Installation 🚀
-
-To use the data manipulation module, you need to install it in your Node.js project using npm. Run the following command in your project directory:
+Install the module via npm:
 
 ```bash
-npm i find_all_data
+npm install findalldata
 ```
 
-## 2. Creating the Module Instance 🏭
+## 🚀 Basic Usage
 
-After installing the module, you can import it into your JavaScript code as follows:
+When creating a new instance of `FindAllData`, each object in the array is automatically assigned a unique ID **if** the object does not already have an ID. This makes it easy to identify each item and perform specific operations like searching by ID. If the objects already have IDs, they will be preserved.
 
 ```javascript
-const findData = require("find_all_data");
+import FindAllData from "findalldata";
+
+const data = [
+  { name: "John", age: 30 },
+  { name: "Jane", age: 25 },
+];
+
+// Creating a new instance of FindAllData
+const dataQuery = new FindAllData(data);
+
+// Display all items with automatically added IDs
+console.log(dataQuery.findAll());
+// Output: [
+//   { id: 1, name: "John", age: 30 },
+//   { id: 2, name: "Jane", age: 25 }
+// ]
 ```
 
-Then, create an instance of the module by passing your data array (data) as an argument:
+### TypeScript for More Fun 🎨
 
-```javascript
-const user = findData(data);
+When creating a new instance of `FindAllData`, you can specify the type of objects contained in your array using TypeScript generics. This allows for better integration with your code editor and static type checking.
+
+```typescript
+import FindAllData from "findalldata";
+
+interface MenuData {
+  name: string;
+  price: number;
+  vegetarian: boolean;
+  countryOfOrigin: string;
+}
+
+const menuData = [
+  { name: "Curry", price: 12.99, vegetarian: true, countryOfOrigin: "India" },
+  { name: "Sushi", price: 15.5, vegetarian: false, countryOfOrigin: "Japan" },
+  // Other data...
+];
+
+// Creating a new typed instance of FindAllData
+const instance = new FindAllData<MenuData>(menuData);
 ```
 
-## 3. Data Structure 🧱
+In this example, `MenuData` is a TypeScript interface defining the expected structure of the objects in `menuData`. This allows the `FindAllData` instance to provide strongly typed methods and perform type checks at compile time.
 
-The module ensures a consistent data structure by adding a unique 'id' property to each object in the array. It also verifies that all objects have the same keys. Here's how it works:
+## 📖 API
+
+### `new FindAllData(data)`
+
+Creates a new instance of FindAllData.
+
+- **data**: An array of objects to manipulate.
+
+#### Example
 
 ```javascript
-const data = require("./user.json");
-const findData = require("findData");
-
-const user = findData(data);
-
-console.log(user.all());
+const instance = new FindAllData(data);
 ```
 
-In the above example, `user.all()` will return your data array with the 'id' added.
+### `findAll(options)`
 
-## 4. Data Exploration 🔍
+The `findAll` method returns all items in the array, with optional filtering, sorting, and pagination options. This method is super powerful and allows you to manipulate your data like a pro! 🎩
 
-### Searching by 'id' 🔎
+- **options** (optional):
+  - `where`: A list of filter functions. You can add as many as you want! Each function should return `true` for items to include and `false` for those to exclude.
+  - `order`: An array with the key name and order (`ASC` for ascending or `DESC` for descending).
+  - `limit`: An array with the number of results to limit and the offset.
 
-You can search for an object by its 'id' using the `findById` method. For example:
+#### Example
 
-```javascript
-const myUser = user.findById(1);
-console.log(myUser);
-```
-
-### Data Filtering 🧹
-
-The `findAll` method allows you to search for objects in a data set using various filtering and sorting options. This method is particularly useful for extracting specific data from a collection.
-
-### Signature 🖋️
+Imagine we have an array of objects representing users, and we want to find all users over 20 years old, named "John", and sort the results by name in ascending order, but limit the result to the first 5 users.
 
 ```javascript
-findAll(params);
-```
+const data = [
+  { id: 1, name: "John", age: 30 },
+  { id: 2, name: "Jane", age: 25 },
+  { id: 3, name: "John", age: 22 },
+  { id: 4, name: "Doe", age: 18 },
+  { id: 5, name: "John", age: 28 },
+];
 
-### Parameters 🎛️
+const dataQuery = new FindAllData(data);
 
-- `params` (object): An object containing search and filtering options.
-
-### `params` Options 📦
-
-- `params.where` (array of functions): An array of functions to filter objects based on return values.
-- `params.order` (array of two strings): An array containing the name of the sorting key and the sorting order ("ASC" for ascending or "DESC" for descending).
-- `params.limit` (array of two numbers): An array containing the limit of items to return, with an offset value first and a limit value second.
-
-### Return 🚀
-
-- An array of objects that match the specified search criteria.
-
-### Usage Examples 🛠️
-
-1. **Filtering by a Single Key** 🎯
-
-```javascript
-const newData = user.findAll({
-  where: [
-    user => user.age <= 10
-  ]
+const results = dataQuery.findAll({
+  where: [(item) => item.age > 20, (item) => item.name === "John"],
+  order: ["name", "ASC"],
+  limit: [5, 0],
 });
-console.log(newData);
+
+console.log(results);
+// Output: [
+//   { id: 1, name: "John", age: 30 },
+//   { id: 3, name: "John", age: 22 },
+//   { id: 5, name: "John", age: 28 }
+// ]
 ```
 
-2. **Sorting in Ascending Order** 🔄
+In this example, we use two functions in the `where` option:
+
+1. `(item) => item.age > 20`: This function checks that the user's age is over 20.
+2. `(item) => item.name === 'John'`: This function checks that the user's name is "John".
+
+### `findById(id)`
+
+Returns the item with the specified ID.
+
+- **id**: The ID of the item to return.
+
+#### Example
 
 ```javascript
-const newData = user.findAll({
-  order: ['age', 'ASC']
+const item = dataQuery.findById(2);
+console.log(item); // { id: 2, name: "Jane", age: 25 }
+```
+
+### `count`
+
+Returns the total number of items.
+
+#### Example
+
+```javascript
+const totalItems = dataQuery.count;
+console.log(totalItems); // 2
+```
+
+### `keys`
+
+Returns an array of the keys of the objects in the array.
+
+#### Example
+
+```javascript
+const keys = dataQuery.keys;
+console.log(keys); // ["id", "name", "age"]
+```
+
+### `type(key)`
+
+Returns the type of values for the specified key.
+
+- **key**: The key for which to get the type.
+
+#### Example
+
+```javascript
+const typeAge = dataQuery.type("age"); // "number"
+const typeName = dataQuery.type("name"); // "string"
+console.log(typeAge, typeName);
+```
+
+### `distinct(key)`
+
+Returns an array of distinct values for the specified key.
+
+- **key**: The key for which to get distinct values.
+
+#### Example
+
+```javascript
+const distinctNames = dataQuery.distinct("name");
+console.log(distinctNames); // ["John", "Jane"]
+```
+
+### `search(key, value)`
+
+Returns an array of items where the value of the specified key contains the searched value, ignoring case and accents.
+
+- **key**: The key to search.
+- **value**: The value to search for.
+
+#### Example
+
+```javascript
+const results = instance.search("name", "sushi");
+console.log(results); // [{ name: "Sushi", price: 15.5, vegetarian: false, countryOfOrigin: "Japan" }]
+```
+
+### `page(pageNumber, pageSize)`
+
+Returns the items for the specified page and size.
+
+- **pageNumber**: The page number (must be greater than 0).
+- **pageSize**: The number of items per page.
+
+#### Example
+
+```javascript
+const instance = new FindAllData() < MenuData > menuData;
+
+// Using the indices to paginate results in findAll
+const result = instance.findAll({ limit: instance.page(2, 2) });
+console.log(result);
+// Output: [{ id: 3, name: "Dish 3", price: 12.99, vegetarian: true, countryOfOrigin: "Italy" }, ...]
+```
+
+### `min(key)`
+
+Returns the minimum value for the specified key (must be numeric).
+
+- **key**: The key for which to get the minimum value.
+
+#### Example
+
+```javascript
+const minAge = dataQuery.min("age");
+console.log(minAge); // 25
+```
+
+### `max(key)`
+
+Returns the maximum value for the specified key (must be numeric).
+
+- **key**: The key for which to get the maximum value.
+
+#### Example
+
+```javascript
+const maxAge = dataQuery.max("age");
+console.log(maxAge); // 30
+```
+
+### `sum(key)`
+
+Returns the sum of values for the specified key (must be numeric).
+
+- **key**: The key for which to get the sum of values.
+
+#### Example
+
+```javascript
+const totalAge = dataQuery.sum("age");
+console.log(totalAge); // 55 (30 + 25)
+```
+
+### `reset()`
+
+Resets the data to its original state.
+
+#### Example
+
+```javascript
+dataQuery.findAll({
+  where: [(item) => item.age > 20],
 });
-console.log(newData);
+
+console.log(dataQuery.findAll()); // Filtered data
+
+dataQuery.reset();
+console.log(dataQuery.findAll()); // Original data
 ```
 
-3. **Sorting in Descending Order** 🔄
+## 🎉 Key Features
 
-```javascript
-const newData = user.findAll({
-  order: ['age', 'DESC']
-});
-console.log(newData);
-```
+- **Easy Filtering**: Filter your data with custom functions.
+- **Powerful Sorting**: Sort your data by any key in ascending or descending order.
+- **Pagination**: Easily manage data pagination.
+- **Aggregation**: Calculate minimum, maximum values, and sums for numeric keys.
+- **Search**: Search through your data with ease.
 
-4. **Limiting Results with an Offset** 📃
+## 🤝 Contribute
 
-```javascript
-const newData = user.findAll({
-  limit: [5, 10], // Return 10 results starting from the 6th result
-});
-console.log(newData);
-```
+Contributions are welcome! If you have ideas or improvements, feel free to open an issue or submit a pull request.
 
-5. **Combining Multiple Options** 🌟
+## 📄 License
 
-```javascript
-const newData = user.findAll({
-  where: [
-    user => user.age <= 10,
-    user => user.isAdmin === true,
-  ],
-  order: ['age', 'DESC'],
-  limit: [5, 10],
-});
-console.log(newData);
-```
-
-## 5. Data Aggregation 📊
-
-You can perform several aggregation operations on your data, such as calculating the sum, finding the maximum and minimum values for a numeric key. Here are some examples:
-
-#### Sum of Values 📈
-
-```javascript
-const sum = user.sum("age");
-console.log(sum);
-```
-
-#### Maximum Value 🚀
-
-```javascript
-const maxValue = user.max("age");
-console.log(maxValue);
-```
-
-#### Minimum Value 📉
-
-```javascript
-const minValue = user.min("age");
-console.log(minValue);
-```
-
-## 6. Data Pagination 📄
-
-Pagination allows you to manage large amounts of data by retrieving only a portion of the results at a time. Here's how to paginate your data:
-
-```javascript
-const [offset, limit] = user.page(2, 10); // Page 2, 10 items per page
-```
-
-```javascript
-const newData = user.findAll(
-  {
-    limit: user.page(2, 10)
-  });
-
-console.log(newData);
-```
-
-## 7. Text Search 🔍
-
-You can perform case-insensitive and accent-insensitive text searches on a specific key. For example, to search for objects containing the term "apple" in the 'description' key:
-
-```javascript
-const newData = user.findAll(
-  {
-    where: [
-      user.search('description', 'apple')
-    ]
-  });
-
-console.log(newData);
-```
-
-## 8. Functions 🛠️
-
-It provides several useful functions for working with data sets. Here's a description of the key functions of the module.
-
-## `keys` Function 🗝️
-
-
-
-The `keys` function returns an array of keys (property names) of the objects in the data array. This allows you to understand the structure of objects and the properties you can access.
-
-```javascript
-const keys = user.keys();
-console.log(keys); // Displays an array of keys
-```
-
-## `distinct` Function 🌟
-
-The `distinct` function takes a key as input and returns an array of unique values for that key in the data array. It's useful for obtaining unique values from a specific column.
-
-```javascript
-const uniqueValues = user.distinct('age');
-console.log(uniqueValues); // Displays an array of unique values
-```
-
-## `type` Function 📝
-
-The `type` function takes a key as input and returns the data type (string, number, boolean, etc.) of the associated property in the objects of the data array.
-
-```javascript
-const propertyType = user.type('age');
-console.log(propertyType); // Displays the data type
-```
-
-## `reset` Function 🔄
-
-The `reset` function resets the temporary data array to the original data. This cancels all previous filtering, sorting, or pagination operations applied.
-
-```javascript
-user.reset(); // Resets the temporary data
-```
-
-These functions allow you to better understand the structure of your data, extract unique values, and determine the data types associated with your objects' properties. You can also reset temporarily modified data at any time using the `reset` function.
-
-This documentation covers the main features of the data manipulation module. You can now use these tools to explore, filter, aggregate, and paginate your data with ease in your JavaScript projects. Feel free to experiment further with these functions to master them better. 🚀
+This project is licensed under the MIT License.

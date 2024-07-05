@@ -1,268 +1,286 @@
-# 📦 Module de Manipulation de Données
+# 📦 FindAllData
 
-Le module 📦 de manipulation de données est une bibliothèque qui simplifie la manipulation et l'analyse de tableaux de données. Peu importe si vos données sont brutes ou si vous avez besoin de réaliser des opérations complexes comme le tri, la recherche 🕵️‍♂️, ou les calculs 📊, ce module peut vous faciliter la tâche.
+**FindAllData** est une bibliothèque JavaScript géniale pour gérer, rechercher et manipuler facilement des ensembles de données. Vous travaillez souvent avec des tableaux d'objets ? Alors cette bibliothèque est faite pour vous ! Elle vous offre des méthodes pratiques pour filtrer, trier, paginer et bien plus encore.
 
-## Pourquoi Utiliser Ce Module ? 🤷‍♂️
+![npm version](https://img.shields.io/npm/v/find_all_data) ![npm downloads](https://img.shields.io/npm/dm/find_all_data) ![license](https://img.shields.io/npm/l/find_all_data)
 
-### Structuration des Données 🏗️
+## 🎉 Installation
 
-L'un des aspects essentiels de la manipulation de données, c'est d'avoir des données bien structurées. Ce module vous permet de prendre un tableau de données existant et d'y ajouter une propriété unique 'id' à chaque objet. Il s'assure également que tous les objets du tableau ont les mêmes clés, garantissant ainsi une structure cohérente.
-
-### Exploration des Données 🔍
-
-Vous pouvez facilement explorer vos données en extrayant des informations essentielles. Le module propose des méthodes pour rechercher des objets spécifiques par leur 'id' ou pour filtrer les données en fonction de critères spécifiques. Cela vous permet de répondre rapidement à des questions telles que "Quels sont les éléments correspondant à un critère particulier ?"
-
-### Agrégation des Données 📊
-
-Si vous avez besoin d'agréger ou de résumer des données, ce module vous permet de calculer des statistiques telles que la somme, la valeur maximale et minimale pour n'importe quelle clé numérique. Vous pouvez ainsi obtenir rapidement des informations utiles à partir de vos données.
-
-### Pagination des Données 📄
-
-Pour gérer de grandes quantités de données, le module offre une fonction de pagination. Vous pouvez spécifier le numéro de page et le nombre d'éléments par page, et le module renverra la plage de données correspondante. Cela facilite la création de vues paginées dans votre application.
-
-### Recherche de Texte 🔎
-
-Une autre fonctionnalité puissante de ce module est la recherche de texte. Vous pouvez effectuer des recherches insensibles à la casse et sans tenir compte des accents. Cela vous permet de rechercher des objets contenant des termes spécifiques dans une clé donnée, améliorant ainsi la convivialité de votre application.
-
-## Comment Utiliser Ce Module ? 🛠️
-
-### Table des Matières 📜
-
-1. Installation
-2. Création de l'Instance du Module
-3. Structure des Données
-4. Exploration des Données
-5. Agrégation des Données
-6. Pagination des Données
-7. Recherche de Texte
-8. Les Fonctions
-
-## 1. Installation 🚀
-
-Pour utiliser le module de manipulation de données, vous devez l'installer dans votre projet Node.js à l'aide de npm. Exécutez la commande suivante dans le répertoire de votre projet :
+Installez le module via npm :
 
 ```bash
-npm i find_all_data
+npm install findalldata
 ```
 
-## 2. Création de l'Instance du Module 🏭
+## 🚀 Usage de Base
 
-Après avoir installé le module, vous pouvez l'importer dans votre code JavaScript comme suit :
+Lors de la création d'une nouvelle instance de `FindAllData`, chaque objet dans le tableau se voit automatiquement attribuer un ID unique **si** l'objet n'a pas déjà un ID. Cela permet d'identifier facilement chaque élément et d'effectuer des opérations spécifiques comme la recherche par ID. Si les objets ont déjà des IDs, ceux-ci seront conservés.
 
 ```javascript
-const findData = require("find_all_data");
+import FindAllData from "findalldata";
+
+const data = [
+  { name: "John", age: 30 },
+  { name: "Jane", age: 25 },
+];
+
+// Création d'une nouvelle instance de FindAllData
+const dataQuery = new FindAllData(data);
+
+// Affiche tous les éléments avec des IDs ajoutés automatiquement
+console.log(dataQuery.findAll());
+// Output: [
+//   { id: 1, name: "John", age: 30 },
+//   { id: 2, name: "Jane", age: 25 }
+// ]
 ```
 
-Ensuite, créez une instance du module en passant votre tableau de données (data) en tant qu'argument :
+### TypeScript pour plus de Plaisir 🎨
 
-```javascript
-const user = findData(data);
+Lors de la création d'une nouvelle instance de `FindAllData`, vous pouvez spécifier le type d'objets contenus dans votre tableau en utilisant la syntaxe de généricité TypeScript. Cela permet une meilleure intégration avec votre éditeur de code et des vérifications de type statiques.
+
+```typescript
+import FindAllData from "findalldata";
+
+interface MenuData {
+  name: string;
+  price: number;
+  vegetarian: boolean;
+  countryOfOrigin: string;
+}
+
+const menuData = [
+  { name: "Curry", price: 12.99, vegetarian: true, countryOfOrigin: "India" },
+  { name: "Sushi", price: 15.5, vegetarian: false, countryOfOrigin: "Japan" },
+  // Autres données...
+];
+
+// Création d'une nouvelle instance de FindAllData typée
+const instance = new FindAllData<MenuData>(menuData);
 ```
 
-## 3. Structure des Données 🧱
+Dans cet exemple, `MenuData` est une interface TypeScript définissant la structure attendue des objets dans `menuData`. Cela permet à l'instance de `FindAllData` de fournir des méthodes fortement typées et d'effectuer des vérifications de type au moment de la compilation.
 
-Le module garantit une structure cohérente des données en ajoutant une propriété 'id' unique à chaque objet du tableau. Il vérifie également que tous les objets ont les mêmes clés. Voici comment cela fonctionne :
+## 📖 API
+
+### `new FindAllData(data)`
+
+Crée une nouvelle instance de FindAllData.
+
+- **data** : Un tableau d'objets à manipuler.
+
+#### Exemple
 
 ```javascript
-const data = require("./user.json");
-const findData = require("findData");
-
-const user = findData(data);
-
-console.log(user.all());
+const instance = new FindAllData(data);
 ```
 
-Dans l'exemple ci-dessus, `user.all()` retournera votre tableau de données avec les 'id' ajoutés.
+### `findAll(options)`
 
-## 4. Exploration des Données 🔍
+La méthode `findAll` retourne tous les éléments du tableau, avec des options facultatives de filtrage, tri et pagination. Cette méthode est super puissante et vous permet de manipuler vos données comme un pro ! 🎩
 
-### Recherche par 'id' 🔎
+- **options** (facultatif) :
+  - `where` : Une liste de fonctions de filtre. Vous pouvez en mettre autant que vous le souhaitez ! Chaque fonction doit retourner `true` pour les éléments à inclure et `false` pour ceux à exclure.
+  - `order` : Un tableau avec le nom de la clé et l'ordre (`ASC` pour ascendant ou `DESC` pour descendant).
+  - `limit` : Un tableau avec le nombre de résultats à limiter et le décalage (offset).
 
-Vous pouvez rechercher un objet par son 'id' à l'aide de la méthode `findById`. Par exemple :
+#### Exemple
 
-```javascript
-const myUser = user.findById(1);
-console.log(myUser);
-```
-
-### Filtrage des Données 🧹
-
-La méthode `findAll` permet de rechercher des objets dans un ensemble de données en utilisant diverses options de filtrage et de tri. Cette méthode est particulièrement utile pour extraire des données spécifiques à partir d'une collection.
-
-### Signature 🖋️
+Imaginons que nous ayons un tableau d'objets représentant des utilisateurs, et que nous souhaitons trouver tous les utilisateurs de plus de 20 ans, qui s'appellent "John", et trier les résultats par nom de manière ascendante, mais en limitant le résultat aux 5 premiers utilisateurs.
 
 ```javascript
-findAll(params);
-```
+const data = [
+  { id: 1, name: "John", age: 30 },
+  { id: 2, name: "Jane", age: 25 },
+  { id: 3, name: "John", age: 22 },
+  { id: 4, name: "Doe", age: 18 },
+  { id: 5, name: "John", age: 28 },
+];
 
-### Paramètres 🎛️
+const dataQuery = new FindAllData(data);
 
-- `params` (objet) : Un objet contenant les options de recherche et de filtrage.
-
-### Options de `params` 📦
-
-- `params.where` (tableau de fonctions) : Un tableau de fonctions pour filtrer les objets en fonction des valeurs de retour.
-- `params.order` (tableau de deux chaînes de caractères) : Un tableau contenant le nom de la clé de tri et l'ordre de tri ("ASC" pour ascendant ou "DESC" pour descendant).
-- `params.limit` (tableau de deux nombres) : Un tableau contenant la limite d'éléments à retourner, avec une valeur d'offset en premier et une valeur de limite en second.
-
-### Retour 🚀
-
-- Un tableau d'objets correspondant aux critères de recherche spécifiés.
-
-### Exemples d'Utilisation 🛠️
-
-1. **Filtrer par une seule clé** 🎯
-
-```javascript
-const newData = user.findAll({
-  where: [
-    user => user.age <= 10
-  ]
+const results = dataQuery.findAll({
+  where: [(item) => item.age > 20, (item) => item.name === "John"],
+  order: ["name", "ASC"],
+  limit: [5, 0],
 });
-console.log(newData);
+
+console.log(results);
+// Output: [
+//   { id: 1, name: "John", age: 30 },
+//   { id: 3, name: "John", age: 22 },
+//   { id: 5, name: "John", age: 28 }
+// ]
 ```
 
-2. **Trier par ordre croissant** 🔄
+Dans cet exemple, nous utilisons deux fonctions dans l'option `where` :
+
+1. `(item) => item.age > 20` : Cette fonction vérifie que l'âge de l'utilisateur est supérieur à 20.
+2. `(item) => item.name === 'John'` : Cette fonction vérifie que le nom de l'utilisateur est "John".
+
+### `findById(id)`
+
+Retourne l'élément avec l'identifiant spécifié.
+
+- **id** : L'identifiant de l'élément à retourner.
+
+#### Exemple
 
 ```javascript
-const newData = user.findAll({
-  order:['age','ASC']
+const item = dataQuery.findById(2);
+console.log(item); // { id: 2, name: "Jane", age: 25 }
+```
+
+### `count`
+
+Retourne le nombre total d'éléments.
+
+#### Exemple
+
+```javascript
+const totalItems = dataQuery.count;
+console.log(totalItems); // 2
+```
+
+### `keys`
+
+Retourne un tableau des clés des objets dans le tableau.
+
+#### Exemple
+
+```javascript
+const keys = dataQuery.keys;
+console.log(keys); // ["id", "name", "age"]
+```
+
+### `type(key)`
+
+Retourne le type des valeurs pour la clé spécifiée.
+
+- **key** : La clé pour laquelle obtenir le type.
+
+#### Exemple
+
+```javascript
+const typeAge = dataQuery.type("age"); // "number"
+const typeName = dataQuery.type("name"); // "string"
+console.log(typeAge, typeName);
+```
+
+### `distinct(key)`
+
+Retourne un tableau des valeurs distinctes pour la clé spécifiée.
+
+- **key** : La clé pour laquelle obtenir les valeurs distinctes.
+
+#### Exemple
+
+```javascript
+const distinctNames = dataQuery.distinct("name");
+console.log(distinctNames); // ["John", "Jane"]
+```
+
+### `search(key, value)`
+
+Retourne un tableau des éléments dont la valeur de la clé spécifiée contient la valeur recherchée, en ignorant la casse et les accents.
+
+- **key** : La clé à rechercher.
+- **value** : La valeur à rechercher.
+
+#### Exemple
+
+```javascript
+const results = instance.search("name", "sushi");
+console.log(results); // [{ name: "Sushi", price: 15.5, vegetarian: false, countryOfOrigin: "Japan" }]
+```
+
+### `page(pageNumber, pageSize)`
+
+Retourne les éléments pour la page et la taille spécifiées.
+
+- **pageNumber** : Le numéro de la page (doit être supérieur à 0).
+- **pageSize** : Le nombre d'éléments par page.
+
+#### Exemple
+
+```javascript
+const instance = new FindAllData() < MenuData > menuData;
+
+// Utiliser les indices pour paginer les résultats dans findAll
+const result = instance.findAll({ limit: instance.page(2, 2) });
+console.log(result);
+// Output: [{ id: 3, name: "Dish 3", price: 12.99, vegetarian: true, countryOfOrigin: "Italy" }, ...]
+```
+
+### `min(key)`
+
+Retourne la valeur minimale pour la clé spécifiée (doit être numérique).
+
+- **key** : La clé pour laquelle obtenir la valeur minimale.
+
+#### Exemple
+
+```javascript
+const minAge = dataQuery.min("age");
+console.log(minAge); // 25
+```
+
+### `max(key)`
+
+Retourne la valeur maximale pour la clé spécifiée (doit être numérique).
+
+- **key** : La clé pour laquelle obtenir la valeur maximale.
+
+#### Exemple
+
+```javascript
+const maxAge = dataQuery.max("age");
+console.log(maxAge); // 30
+```
+
+### `sum(key)`
+
+Retourne la somme des valeurs pour la clé spécifiée (doit être numérique).
+
+- **key** : La clé pour laquelle obtenir la somme des valeurs.
+
+#### Exemple
+
+```javascript
+const totalAge = dataQuery.sum("age");
+console.log(totalAge); // 55 (30 + 25)
+```
+
+### `reset()`
+
+Réinitialise les données à leur état d'origine.
+
+#### Exemple
+
+```javascript
+dataQuery.findAll({
+  where: [(item) => item.age > 20],
 });
-console.log(newData);
+
+console.log(dataQuery.findAll()); // Données filtrées
+
+dataQuery.reset();
+console.log(dataQuery.findAll()); // Données originales
 ```
 
-3. **Trier par ordre décroissant** 🔄
+## 🎉 Fonctionnalités Clés
 
-```javascript
-const newData = user.findAll({
-  order:['age','DESC']
-});
-console.log(newData);
-```
+- **Filtrage Facile** : Filtrez vos données avec des fonctions personnalisées.
+- **Tri Puissant** : Triez vos données par n'importe quelle clé en ordre ascendant ou descendant.
+- **Pagination** : Gérez facilement la pagination de vos données.
+- **Agrégation** : Calculez les valeurs minimales, maximales et les sommes pour les clés numériques.
+- **Recherche** : Recherchez dans vos données en toute simplicité.
 
-4. **Limite de résultats avec un offset** 📃
+## 🤝 Contribuer
 
-```javascript
-const newData = user.findAll({
-  limit: [5, 10], // Renvoyer 10 résultats à partir du 6ème résultat
-});
-console.log(newData);
-```
+Les contributions sont les bienvenues ! Si vous avez des idées ou des améliorations, n'hésitez pas à ouvrir une issue ou à soumettre une pull request.
 
-5. **Combiner plusieurs options** 🌟
+## 📄 Licence
 
-```javascript
-const newData = user.findAll({
-  where: [
-    user => user.age <= 10,
-    user => user.isAdmin === true,
-  ],
-  order:['age','DESC'],
-  limit: [5, 10],
-});
-console.log(newData);
-```
+Ce projet est sous licence MIT.
 
-## 5. Agrégation des Données 📊
-
-Vous pouvez effectuer plusieurs opérations d'
-
-agrégation sur vos données, telles que le calcul de la somme, la recherche de la valeur maximale et minimale d'une clé numérique. Voici quelques exemples :
-
-#### Somme des Valeurs 📈
-
-```javascript
-const somme = user.sum("age");
-console.log(somme);
-```
-
-#### Valeur Maximale 🚀
-
-```javascript
-const valeurMaximale = user.max("age");
-console.log(valeurMaximale);
-```
-
-#### Valeur Minimale 📉
-
-```javascript
-const valeurMinimale = user.min("age");
-console.log(valeurMinimale);
-```
-
-## 6. Pagination des Données 📄
-
-La pagination vous permet de gérer de grandes quantités de données en récupérant uniquement une partie des résultats à la fois. Voici comment paginer vos données :
-
-```javascript
-const [offset, limit] = user.page(2, 10); // Page 2, 10 éléments par page
-```
-
-```javascript
-const newData = user.findAll(
-  {
-    limit:user.page(2, 10)
-  });
-
-console.log(newData);
-```
-
-## 7. Recherche de Texte 🔍
-
-Vous pouvez effectuer des recherches de texte insensibles à la casse et sans tenir compte des accents sur une clé spécifique. Par exemple, pour rechercher des objets contenant le terme "pomme" dans la clé 'description' :
-
-```javascript
-
-const newData = user.findAll(
-  {
-    where: [
-      user.sherch('description', 'pomme')
-    ]
-  });
-
-console.log(newData);
-
-```
-
-## 8. Les Fonctions 🛠️
-
-Il offre plusieurs fonctions utiles pour travailler avec des ensembles de données. Voici une description des fonctions clés du module. 
-
-## Fonction `keys` 🗝️
-
-La fonction `keys` retourne un tableau des clés (noms de propriétés) des objets dans le tableau de données. Cela permet de connaître la structure des objets et les propriétés auxquelles vous pouvez accéder. 
-
-```javascript 
-const keys = user.keys(); 
-console.log(keys); // Affiche un tableau des clés
-```
-
-## Fonction `distinct` 🌟
-
-La fonction `distinct` prend en entrée une clé et retourne un tableau des valeurs uniques de cette clé dans le tableau de données. Elle est utile pour obtenir des valeurs uniques d'une colonne particulière.
-
-```javascript 
-const uniqueValues = user.distinct('age'); 
-console.log(uniqueValues); // Affiche un tableau de valeurs uniques
-```
-
-## Fonction `type` 📝
-
-La fonction `type` prend en entrée une clé et retourne le type de données (string, number, boolean, etc.) de la propriété associée dans les objets du tableau de données.
-
-```javascript 
-const propertyType = user.type('age'); 
-console.log(propertyType); // Affiche le type de données
-```
-
-## Fonction `reset` 🔄
-
-La fonction `reset` réinitialise le tableau de données temporaire aux données d'origine. Cela annule toutes les opérations de filtrage, de tri ou de pagination appliquées précédemment.
-
-```javascript 
-user.reset(); // Réinitialise les données temporaires
-```
-
-Ces fonctions vous permettent de mieux comprendre la structure de vos données, d'extraire des valeurs uniques et de connaître les types de données associés aux propriétés de vos objets. Vous pouvez également réinitialiser les données temporairement modifiées à tout moment en utilisant la fonction `reset`.
-
-Cette documentation couvre les principales fonctionnalités du module de manipulation de données. Vous pouvez maintenant utiliser ces outils pour explorer, filtrer, agréger et paginer vos données avec facilité dans vos projets JavaScript. N'hésitez pas à expérimenter davantage avec ces fonctions pour mieux les maîtriser. 🚀
